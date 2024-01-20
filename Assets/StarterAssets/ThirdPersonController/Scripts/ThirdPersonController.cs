@@ -47,8 +47,15 @@ namespace StarterAssets
         public float FallTimeout = 0.15f;
 
         [Space(10)]
+        [Header("Crouch")]
         [Tooltip("Player Crouched")]
         public bool Crouched = false;
+
+        [Tooltip("The height of the character controller while crouched")]
+        public float CrouchedControllerHeight = 1.0f;
+
+        [Tooltip("The center of the character controller while crouched")]
+        public float CrouchedControllerCenterY = 0.5f;
 
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
@@ -103,6 +110,10 @@ namespace StarterAssets
         private int _animIDMotionSpeed;
         private int _animIDCrouched;
 
+        // chracter controller
+        float _characterControllerHeight = 0.0f;
+        Vector3 _characterControllerCenter = Vector3.zero;
+
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
@@ -151,6 +162,7 @@ namespace StarterAssets
 #endif
 
             AssignAnimationIDs();
+            AssingCharacterControlerInfo();
 
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
@@ -182,6 +194,12 @@ namespace StarterAssets
             _animIDCrouched = Animator.StringToHash("Crouched");
         }
 
+        private void AssingCharacterControlerInfo()
+        {
+            _characterControllerHeight = _controller.height;
+            _characterControllerCenter = _controller.center;
+        }
+
         private void Crouching()
         {
             if (Grounded)
@@ -191,14 +209,14 @@ namespace StarterAssets
                     Crouched = !Crouched;
                     if (Crouched == true)
                     {
-                        _controller.height = 1.0f;
-                        _controller.center = new Vector3(0.0f, 0.5f, 0.0f);
+                        _controller.height = CrouchedControllerHeight;
+                        _controller.center = new Vector3(0.0f, CrouchedControllerCenterY, 0.0f);
                         _animator.SetBool(_animIDCrouched, true);
                     }
                     else
                     {
-                        _controller.height = 2.0f;
-                        _controller.center = new Vector3(0.0f, 1.0f, 0.0f);
+                        _controller.height = _characterControllerHeight;
+                        _controller.center = _characterControllerCenter;
                         _animator.SetBool(_animIDCrouched, false);
                     }
                 }
