@@ -182,12 +182,11 @@ namespace StarterAssets
             _animIDCrouched = Animator.StringToHash("Crouched");
         }
 
-        //ToDo make it works with _input.crouch
         private void Crouching()
         {
             if (Grounded)
             {
-                if (Input.GetKeyDown(KeyCode.C))
+                if (_input.crouch)
                 {
                     Crouched = !Crouched;
                     if (Crouched == true)
@@ -203,6 +202,7 @@ namespace StarterAssets
                         _animator.SetBool(_animIDCrouched, false);
                     }
                 }
+                _input.crouch = false;
             }
         }
 
