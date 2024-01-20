@@ -46,6 +46,10 @@ namespace StarterAssets
         [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
         public float FallTimeout = 0.15f;
 
+        [Space(10)]
+        [Tooltip("Player Crouched")]
+        public bool Crouched = false;
+
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool Grounded = true;
@@ -97,6 +101,7 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
+        private int _animIDCrouched;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -157,6 +162,7 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
 
             JumpAndGravity();
+            Crouching();
             GroundedCheck();
             Move();
         }
@@ -173,6 +179,31 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _animIDCrouched = Animator.StringToHash("Crouched");
+        }
+
+        //ToDo make it works with _input.crouch
+        private void Crouching()
+        {
+            if (Grounded)
+            {
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    Crouched = !Crouched;
+                    if (Crouched == true)
+                    {
+                        _controller.height = 1.0f;
+                        _controller.center = new Vector3(0.0f, 0.5f, 0.0f);
+                        _animator.SetBool(_animIDCrouched, true);
+                    }
+                    else
+                    {
+                        _controller.height = 2.0f;
+                        _controller.center = new Vector3(0.0f, 1.0f, 0.0f);
+                        _animator.SetBool(_animIDCrouched, false);
+                    }
+                }
+            }
         }
 
         private void GroundedCheck()
