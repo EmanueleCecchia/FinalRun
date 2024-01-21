@@ -219,8 +219,22 @@ namespace StarterAssets
                         _controller.center = _characterControllerCenter;
                         _animator.SetBool(_animIDCrouched, false);
                     }
+                    _input.crouch = false;
                 }
-                _input.crouch = false;
+                if (_input.sprint && Crouched)
+                {
+                    Crouched = false;
+                    _controller.height = _characterControllerHeight;
+                    _controller.center = _characterControllerCenter;
+                    _animator.SetBool(_animIDCrouched, false);
+                }
+            }
+            else
+            {
+                Crouched = false;
+                _controller.height = _characterControllerHeight;
+                _controller.center = _characterControllerCenter;
+                _animator.SetBool(_animIDCrouched, false);
             }
         }
 
