@@ -206,36 +206,54 @@ namespace StarterAssets
             {
                 if (_input.crouch)
                 {
-                    Crouched = !Crouched;
-                    if (Crouched == true)
-                    {
-                        _controller.height = CrouchedControllerHeight;
-                        _controller.center = new Vector3(0.0f, CrouchedControllerCenterY, 0.0f);
-                        _animator.SetBool(_animIDCrouched, true);
-                    }
-                    else
-                    {
-                        _controller.height = _characterControllerHeight;
-                        _controller.center = _characterControllerCenter;
-                        _animator.SetBool(_animIDCrouched, false);
-                    }
-                    _input.crouch = false;
+                    HandleCrouchInput();
                 }
+                    
+                // Sprinting while crouched
                 if (_input.sprint && Crouched)
                 {
-                    Crouched = false;
-                    _controller.height = _characterControllerHeight;
-                    _controller.center = _characterControllerCenter;
-                    _animator.SetBool(_animIDCrouched, false);
+                    ExitCrouchState();
                 }
+            }
+            // Jumping while crouched
+            else if (Crouched) 
+            {
+                ExitCrouchState();
+            }
+        }
+
+        private void HandleCrouchInput()
+        {
+            Crouched = !Crouched;
+            if (Crouched == true)
+            {
+                SetCrouchedControllerAndAnimator();
             }
             else
             {
-                Crouched = false;
-                _controller.height = _characterControllerHeight;
-                _controller.center = _characterControllerCenter;
-                _animator.SetBool(_animIDCrouched, false);
+                SetStandingControllerAndAnimator();
             }
+            _input.crouch = false;
+        }
+
+        private void ExitCrouchState()
+        {
+            Crouched = false;
+            SetStandingControllerAndAnimator();
+        }
+
+        private void SetStandingControllerAndAnimator()
+        {
+            _controller.height = _characterControllerHeight;
+            _controller.center = _characterControllerCenter;
+            _animator.SetBool(_animIDCrouched, false);
+        }
+
+        private void SetCrouchedControllerAndAnimator()
+        {
+            _controller.height = CrouchedControllerHeight;
+            _controller.center = new Vector3(0.0f, CrouchedControllerCenterY, 0.0f);
+            _animator.SetBool(_animIDCrouched, true);
         }
 
         private void GroundedCheck()
