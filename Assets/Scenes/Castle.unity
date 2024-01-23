@@ -13362,6 +13362,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 457262, guid: d9d95bd4aa86d86448ff3c157b7bb366, type: 3}
   m_PrefabInstance: {fileID: 440190630}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &440644685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 440644686}
+  m_Layer: 8
+  m_Name: InteractionPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &440644686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440644685}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0.324}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6915685990524861389}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &444912439
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60388,6 +60419,7 @@ MonoBehaviour:
   jump: 0
   sprint: 0
   crouch: 0
+  interact: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -60504,6 +60536,7 @@ GameObject:
   - component: {fileID: 6973578167292179109}
   - component: {fileID: 2521674983332730740}
   - component: {fileID: 6744501333139036797}
+  - component: {fileID: 8528167112170330196}
   m_Layer: 8
   m_Name: Character
   m_TagString: Player
@@ -60527,6 +60560,7 @@ Transform:
   - {fileID: 1683257268614364350}
   - {fileID: 560200615}
   - {fileID: 523509252}
+  - {fileID: 440644686}
   m_Father: {fileID: 1927223066}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6973578167292179109
@@ -60742,7 +60776,7 @@ GameObject:
   - component: {fileID: 7997576303842167797}
   - component: {fileID: 7963703205526081141}
   - component: {fileID: 7973363087729970349}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GateLeverStick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60762,7 +60796,7 @@ GameObject:
   - component: {fileID: 7973509749308991063}
   - component: {fileID: 7932545291912170575}
   - component: {fileID: 7995067312478295362}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GateLever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60778,9 +60812,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7995067312478295361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1edf34bd8401cae40867e63c52872258, type: 3}
+  m_Script: {fileID: 11500000, guid: faccd81ee20eb0741b812f02a7dc9e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _prompt: Lever activated
 --- !u!4 &7997576303842167797
 Transform:
   m_ObjectHideFlags: 0
@@ -60822,6 +60857,24 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.93, z: 0}
+--- !u!114 &8528167112170330196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6830640686780058121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af717e42922fcba40a7db3538c68fed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionPoint: {fileID: 440644686}
+  _interactionPointRadius: 1.5
+  _interactionMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _numFound: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
