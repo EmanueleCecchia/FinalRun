@@ -10,9 +10,12 @@ public class Interactor : MonoBehaviour
     [SerializeField] private Transform _interactionPoint;
     [SerializeField] private float _interactionPointRadius = 0.5f;
     [SerializeField] private LayerMask _interactionMask;
+    [SerializeField] private InteractionPromptUI _interactionPromptUI;
 
     private readonly Collider[] _colliders = new Collider[3];
     [SerializeField] private int _numFound;
+
+    private IInteractable _interactable;
 
     private StarterAssetsInputs _input;
 
@@ -27,13 +30,23 @@ public class Interactor : MonoBehaviour
         
         if (_numFound > 0)
         {
-            var interactable = _colliders[0].GetComponent<IInteractable>();          
-            if (interactable != null && _input.interact)
-            {
-                interactable.Interact(this);
-                _input.interact = false;
-            }
+            _interactable = _colliders[0].GetComponent<IInteractable>();  
             
+            if (_interactable != null )
+            {
+                if (!_interactionPromptUI.IsDisplayed) _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
+
+                if (_input.interact)
+                {
+                    _interactable.Interact(this);
+                    _input.interact = false;
+                }
+            }
+        }
+        else
+        {
+            if (_interactable != null) _interactable = null;
+            if (_interactionPromptUI.IsDisplayed) _interactionPromptUI.Close();
         }
     }
 
