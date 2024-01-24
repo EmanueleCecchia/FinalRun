@@ -61130,6 +61130,7 @@ GameObject:
   - component: {fileID: 7973509749308991063}
   - component: {fileID: 7932545291912170575}
   - component: {fileID: 7995067312478295362}
+  - component: {fileID: 7995067312478295363}
   m_Layer: 6
   m_Name: GateLever
   m_TagString: Untagged
@@ -61150,6 +61151,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prompt: Press E to Interact
+--- !u!95 &7995067312478295363
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7995067312478295361}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: df21a923f3616b040ac68d0a09fb5bfb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &7997576303842167797
 Transform:
   m_ObjectHideFlags: 0
@@ -61159,7 +61181,7 @@ Transform:
   m_GameObject: {fileID: 7994049509562842183}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0017406797, y: 0.017106093, z: 0.0491}
+  m_LocalPosition: {x: 0, y: 0, z: 0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
