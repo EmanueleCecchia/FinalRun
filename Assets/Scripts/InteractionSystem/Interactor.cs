@@ -34,22 +34,42 @@ public class Interactor : MonoBehaviour
            
             if (_interactable != null && _interactable.canInteract != false)
             {
-                if (!_interactionPromptUI.IsDisplayed) _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
-
-                if (_input.interact)
-                {
-                    _interactable.Interact(this);
-                    if (_interactable.canInteract == false) _interactionPromptUI.Close();
-                    _input.interact = false;
-                }    
+                HandleInteractionUI();
+                HandleInteractInput();
             }
         }
         else
         {
-            if (_interactable != null) _interactable = null;
-            if (_interactionPromptUI.IsDisplayed) _interactionPromptUI.Close();
+            ClearInteractable();
+            CloseInteractionUI();
         }
     }
+
+    private void HandleInteractionUI()
+    {
+        if (!_interactionPromptUI.IsDisplayed) _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
+    }
+
+    private void HandleInteractInput()
+    {
+        if (_input.interact)
+        {
+            _interactable.Interact(this);
+            if (!_interactable.canInteract) CloseInteractionUI();
+            _input.interact = false;
+        }
+    }
+
+    private void ClearInteractable()
+    {
+        if (_interactable != null) _interactable = null;
+    }
+
+    private void CloseInteractionUI()
+    {
+        if (_interactionPromptUI.IsDisplayed) _interactionPromptUI.Close();
+    }
+
 
     private void OnDrawGizmos()
     {
