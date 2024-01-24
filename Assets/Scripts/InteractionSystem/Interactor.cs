@@ -31,16 +31,17 @@ public class Interactor : MonoBehaviour
         if (_numFound > 0)
         {
             _interactable = _colliders[0].GetComponent<IInteractable>();  
-            
-            if (_interactable != null )
+           
+            if (_interactable != null && _interactable.canInteract != false)
             {
                 if (!_interactionPromptUI.IsDisplayed) _interactionPromptUI.SetUp(_interactable.InteractionPrompt);
 
                 if (_input.interact)
                 {
                     _interactable.Interact(this);
+                    if (_interactable.canInteract == false) _interactionPromptUI.Close();
                     _input.interact = false;
-                }
+                }    
             }
         }
         else
