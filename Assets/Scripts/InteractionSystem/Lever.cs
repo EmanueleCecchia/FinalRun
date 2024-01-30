@@ -10,6 +10,7 @@ public class Lever : MonoBehaviour, IInteractable
     [SerializeField] private bool _canInteract;
     public bool canInteract => _canInteract;
 
+    public Animator _gateAnimator;
     private Animator _animator;
 
     void Start()
@@ -20,6 +21,7 @@ public class Lever : MonoBehaviour, IInteractable
     public bool Interact(Interactor interactor)
     {
         _animator.SetTrigger("Pull");
+        if (_gateAnimator != null) _gateAnimator.SetTrigger("Open");
         _canInteract = false;
         return true;
     }
