@@ -16,14 +16,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] float respawnTime = 2f;
     [SerializeField] private Vector3 respawnPosition;
 
+    [SerializeField] private GameObject respawnCanvas;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<ThirdPersonController>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        originalEnemyRotation = transform.rotation;
-
         if (playerTransform == null) Debug.LogError("Player not found. Make sure the player has the correct tag.");
+
+        originalEnemyRotation = transform.rotation;
+        respawnCanvas.SetActive(false);
     }
 
     void Update()
@@ -85,8 +87,11 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Respawn()
     {
+        yield return new WaitForSeconds(1f);
+        respawnCanvas.SetActive(true);
         yield return new WaitForSeconds(respawnTime);
         playerTransform.position = respawnPosition;
+        respawnCanvas.SetActive(false);
     }
 
     void ReturnToOriginalState()
