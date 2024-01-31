@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using UnityEngine;
 
@@ -8,13 +9,17 @@ public class Enemy : MonoBehaviour
     public float fovRange = 22f;
     public float fieldOfViewAngle = 45f;
 
-    private Transform player;
+    private GameObject player;
+    private ThirdPersonController playerController;
+    private Transform playerTransform;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerController = player.GetComponent<ThirdPersonController>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
-        if (player == null)
+        if (playerTransform == null)
         {
             Debug.LogError("Player not found. Make sure the player has the correct tag.");
         }
@@ -22,12 +27,12 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (player != null)
+        if (playerTransform != null)
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-            Vector3 directionToPlayer = player.position - transform.position;
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+            Vector3 directionToPlayer = playerTransform.position - transform.position;
 
-            if (distanceToPlayer <= detectionRange || InFieldOfView(distanceToPlayer, directionToPlayer))
+            if ((distanceToPlayer <= detectionRange && !playerController.Crouched) || InFieldOfView(distanceToPlayer, directionToPlayer))
             {
                 RotateToPlayer(directionToPlayer);
             }
