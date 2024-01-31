@@ -61829,6 +61829,7 @@ MonoBehaviour:
   detectionRange: 13
   fovRange: 20
   fieldOfViewAngle: 60
+  respawn: {x: 0, y: 0, z: 0}
 --- !u!114 &6744501333139036797
 MonoBehaviour:
   m_ObjectHideFlags: 0

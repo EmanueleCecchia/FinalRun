@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float rotationSpeed = 5f;
+    public float rotationSpeed = 4f;
     public float detectionRange = 15f;
     public float fovRange = 22f;
     public float fieldOfViewAngle = 45f;
@@ -12,17 +12,16 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     private ThirdPersonController playerController;
     private Transform playerTransform;
+    private Quaternion originalEnemyRotation;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<ThirdPersonController>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        originalEnemyRotation = transform.rotation;
 
-        if (playerTransform == null)
-        {
-            Debug.LogError("Player not found. Make sure the player has the correct tag.");
-        }
+        if (playerTransform == null) Debug.LogError("Player not found. Make sure the player has the correct tag.");
     }
 
     void Update()
@@ -36,6 +35,11 @@ public class Enemy : MonoBehaviour
             {
                 RotateToPlayer(directionToPlayer);
                 SetChildrenActive();
+            }
+            else
+            {
+                SetChildrenInactive();
+                transform.rotation = Quaternion.Slerp(transform.rotation, originalEnemyRotation, rotationSpeed * Time.deltaTime); 
             }
         }
     }
@@ -66,6 +70,14 @@ public class Enemy : MonoBehaviour
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(true);
+        }
+    }
+
+    void SetChildrenInactive()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
         }
     }
 
