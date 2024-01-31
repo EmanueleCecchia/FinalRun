@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
     private ThirdPersonController playerController;
     private Transform playerTransform;
     private Quaternion originalEnemyRotation;
+    [SerializeField] float respawnTime = 2f;
+    [SerializeField] private Vector3 respawnPosition;
 
     void Start()
     {
@@ -35,11 +37,11 @@ public class Enemy : MonoBehaviour
             {
                 RotateToPlayer(directionToPlayer);
                 SetChildrenActive();
+                StartCoroutine(Respawn());
             }
             else
             {
-                SetChildrenInactive();
-                transform.rotation = Quaternion.Slerp(transform.rotation, originalEnemyRotation, rotationSpeed * Time.deltaTime); 
+                ReturnToOriginalState();
             }
         }
     }
@@ -79,6 +81,18 @@ public class Enemy : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
+    }
+
+    private IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(respawnTime);
+        playerTransform.position = respawnPosition;
+    }
+
+    void ReturnToOriginalState()
+    {
+        SetChildrenInactive();
+        transform.rotation = Quaternion.Slerp(transform.rotation, originalEnemyRotation, rotationSpeed * Time.deltaTime);
     }
 
     private void OnDrawGizmosSelected()
