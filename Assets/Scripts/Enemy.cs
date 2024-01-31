@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
             if ((distanceToPlayer <= detectionRange && !playerController.Crouched) || InFieldOfView(distanceToPlayer, directionToPlayer))
             {
                 RotateToPlayer(directionToPlayer);
+                SetChildrenActive();
             }
         }
     }
@@ -58,6 +59,14 @@ public class Enemy : MonoBehaviour
         directionToPlayer.y = 0f; // Prevents enemy from tilting up or down
         Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
+
+    void SetChildrenActive()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
     }
 
     private void OnDrawGizmosSelected()
