@@ -13,7 +13,8 @@ public class Enemy : MonoBehaviour
     private ThirdPersonController playerController;
     private Transform playerTransform;
     private Quaternion originalEnemyRotation;
-    [SerializeField] float respawnTime = 2f;
+    [SerializeField] private float respawnTime = 2f;
+    [SerializeField] private float respawnDelay = 1f;
     [SerializeField] private Vector3 respawnPosition;
 
     [SerializeField] private GameObject respawnCanvas;
@@ -87,10 +88,10 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(respawnDelay);
         respawnCanvas.SetActive(true);
-        yield return new WaitForSeconds(respawnTime);
         playerTransform.position = respawnPosition;
+        yield return new WaitForSeconds(respawnTime);
         respawnCanvas.SetActive(false);
     }
 
