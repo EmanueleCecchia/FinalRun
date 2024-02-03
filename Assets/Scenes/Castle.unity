@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 1c5fdf1c7899fdc4a8ff9748dc45e377, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -62061,6 +62061,7 @@ MonoBehaviour:
   fovRange: 20
   fieldOfViewAngle: 60
   respawnTime: 2
+  respawnDelay: 1
   respawnPosition: {x: -8.8, y: 0.005, z: 21}
   respawnCanvas: {fileID: 23561270}
 --- !u!114 &6744501333139036797
