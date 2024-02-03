@@ -7,11 +7,6 @@ public class FinishLine : MonoBehaviour
 {
     [SerializeField] private GameObject finishMenu;
 
-    private void Start()
-    {
-        Time.timeScale = 1;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         Time.timeScale = 0; // Pause the game
