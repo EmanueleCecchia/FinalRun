@@ -29,6 +29,11 @@ namespace StarterAssets
             SetCursorState(cursorLocked);
         }
 
+		private void Update()
+		{
+            cursorLocked = Cursor.lockState == CursorLockMode.Locked;
+		}
+
 
         public void OnMove(InputValue value)
 		{
