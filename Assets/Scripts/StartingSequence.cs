@@ -1,29 +1,30 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class StartingSequence : MonoBehaviour
 {
 
-    [SerializeField] private GameObject[] numbers;
+    public TextMeshProUGUI countdownText;
+    [SerializeField] private int countdownFrom = 3;
 
     void Start()
     {
-        if (numbers.Length == 0) Debug.LogError("No numbers assigned to the StartingSequence script.");
-
-        StartCoroutine(StartSequence());
+        countdownText.text = "";
+        StartCoroutine(Countdown());
         Time.timeScale = 0;   
     }
 
-    private IEnumerator StartSequence()
+    private IEnumerator Countdown()
     {
         yield return new WaitForSecondsRealtime(1);
-        for (int i = 0; i < numbers.Length; i++)
+     
+        for (int i = countdownFrom; i > 0; i--)
         {
-            numbers[i].SetActive(true);
+            countdownText.text = i.ToString();
             yield return new WaitForSecondsRealtime(1);
-            numbers[i].SetActive(false);
         }
 
         gameObject.SetActive(false);
