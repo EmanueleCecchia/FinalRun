@@ -13177,6 +13177,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 408248, guid: 20980883898f4704f86e6d74b75682ef, type: 3}
   m_PrefabInstance: {fileID: 392928879}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &395740071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 395740072}
+  m_Layer: 0
+  m_Name: PathAdjustmentCastle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &395740072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395740071}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -40.5497, y: 7.4651527, z: 17.502417}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 438143866}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &396487152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14514,6 +14546,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 498126, guid: f19c957688bdf7849aa321d60569a6b2, type: 3}
   m_PrefabInstance: {fileID: 437782123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &438143865
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 395740072}
+    m_Modifications:
+    - target: {fileID: 155524, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+      propertyPath: m_Name
+      value: SM_Bld_Castle_Wood_Detal_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 469608, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.261
+      objectReference: {fileID: 0}
+    - target: {fileID: 469608, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.579
+      objectReference: {fileID: 0}
+    - target: {fileID: 469608, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.084
+      objectReference: {fileID: 0}
+    - target: {fileID: 469608, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5590735
+      objectReference: {fileID: 0}
+    - target: {fileID: 469608, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469608, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.82911813
+      objectReference: {fileID: 0}
+    - target: {fileID: 469608, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469608, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469608, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 112.016
+      objectReference: {fileID: 0}
+    - target: {fileID: 469608, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+--- !u!4 &438143866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 469608, guid: c74652422eeb7e14088334d69d323aa2, type: 3}
+  m_PrefabInstance: {fileID: 438143865}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &438639349
 PrefabInstance:
@@ -56748,7 +56842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1876738854}
   m_Layer: 0
-  m_Name: PathTownAdjustment
+  m_Name: PathAdjustmentTown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65154,7 +65248,7 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
-  menu: 0
+  isMenuOpen: 0
   menuUI: {fileID: 566718041}
 --- !u!143 &8528167112170330195
 CharacterController:
@@ -65212,6 +65306,7 @@ SceneRoots:
   - {fileID: 1982439083}
   - {fileID: 224999005}
   - {fileID: 1876738854}
+  - {fileID: 395740072}
   - {fileID: 2337141815874876975}
   - {fileID: 333857178}
   - {fileID: 474866310}
