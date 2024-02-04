@@ -86,6 +86,10 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        [Header("Menu Settings")]
+        public bool isMenuOpen;
+        public GameObject menuUI;
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -173,6 +177,7 @@ namespace StarterAssets
         {
             _hasAnimator = TryGetComponent(out _animator);
 
+            Menu();
             JumpAndGravity();
             Crouching();
             GroundedCheck();
@@ -198,6 +203,18 @@ namespace StarterAssets
         {
             _characterControllerHeight = _controller.height;
             _characterControllerCenter = _controller.center;
+        }
+
+        private void Menu()
+        {
+            if (_input.menu)
+            {
+                isMenuOpen = !isMenuOpen;
+                menuUI.SetActive(isMenuOpen);
+                _input.menu = false;
+            }
+
+            isMenuOpen = menuUI.activeSelf; // for the case when the menu is opened or closed by other means (like a button resume)
         }
 
         private void Crouching()

@@ -22,6 +22,9 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
+		[Header("Menu Settings")]
+        public bool menu;
+
 #if ENABLE_INPUT_SYSTEM
 
         private void Start()
@@ -68,6 +71,11 @@ namespace StarterAssets
             InteractInput(value.isPressed);
         }
 
+		public void OnMenu(InputValue value)
+		{
+            MenuInput(value.isPressed);
+        }
+
 #endif
 
 
@@ -99,6 +107,11 @@ namespace StarterAssets
 		public void InteractInput(bool newInteractState)
 		{
             interact = newInteractState;
+        }
+
+		public void MenuInput(bool newMenuState)
+		{
+            menu = newMenuState;
         }
 
 		private void OnApplicationFocus(bool hasFocus)
