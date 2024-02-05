@@ -19,7 +19,7 @@ public class MenuWhileGaming : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("Castle");
+        SceneManager.LoadScene( SceneManager.GetActiveScene().name );
     }
 
     public void BackToMenu()
