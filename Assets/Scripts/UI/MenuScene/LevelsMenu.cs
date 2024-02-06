@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class LevelsMenu : MonoBehaviour
 {
+    public TextMeshProUGUI tutorialRecordText;
+    public TextMeshProUGUI forestRecordText;
     public TextMeshProUGUI castleRecordText;
+    public TextMeshProUGUI cityRecordText;
 
     public void PlayTutorial()
     {
@@ -35,13 +38,23 @@ public class LevelsMenu : MonoBehaviour
 
     private void Start()
     {
+        tutorialRecordText.text = TimeFromFloatToString(PlayerPrefs.GetFloat("BestTimeTutorial"));
+        forestRecordText.text = TimeFromFloatToString(PlayerPrefs.GetFloat("BestTimeForest"));
         castleRecordText.text = TimeFromFloatToString(PlayerPrefs.GetFloat("BestTimeCastle"));
+        cityRecordText.text = TimeFromFloatToString(PlayerPrefs.GetFloat("BestTimeCity"));
     }
 
     string TimeFromFloatToString(float time)
     {
-        string minutes = Mathf.Floor(time / 60).ToString("00");
-        string seconds = (time % 60).ToString("00");
-        return minutes + ":" + seconds;
+        if (time == 0)
+        {
+            return "/";
+        }
+        else
+        {
+            string minutes = Mathf.Floor(time / 60).ToString("00");
+            string seconds = (time % 60).ToString("00");
+            return minutes + ":" + seconds;
+        }
     }
 }
