@@ -10,10 +10,11 @@ public class FinishMenu : MonoBehaviour
     public TextMeshProUGUI bestTimeText;
     private float time = 0f;
     private float bestTime = 0f;
+    private string bestTimeKey;
 
     public void RestartGame()
     {   
-        SceneManager.LoadScene("Castle");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void BackToMenu()
@@ -23,12 +24,14 @@ public class FinishMenu : MonoBehaviour
 
     private void Start()
     {
+        bestTimeKey = "BestTime" + SceneManager.GetActiveScene().name;
+
         time = PlayerPrefs.GetFloat("Time");
         timeText.text = TimeFromFloatToString(time);
 
         UpdateBestTimeIfNeeded();
 
-        bestTime = PlayerPrefs.GetFloat("BestTimeCastle");
+        bestTime = PlayerPrefs.GetFloat(bestTimeKey);
         bestTimeText.text = TimeFromFloatToString(bestTime);
 
     }
@@ -42,9 +45,10 @@ public class FinishMenu : MonoBehaviour
 
     void UpdateBestTimeIfNeeded()
     {
-        if (PlayerPrefs.GetFloat("BestTimeCastle") == 0 || time < PlayerPrefs.GetFloat("BestTimeCastle"))
+        float currentBestTime = PlayerPrefs.GetFloat(bestTimeKey);
+        if (currentBestTime == 0 || time < currentBestTime)
         {
-            PlayerPrefs.SetFloat("BestTimeCastle", time);
+            PlayerPrefs.SetFloat(bestTimeKey, time);
         }
     }
 }
