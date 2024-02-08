@@ -100,9 +100,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5526726
-  m_Height: 4.5865846
+  m_Height: 3.868595
   m_Direction: 1
-  m_Center: {x: -0.00000023841858, y: 1.7617495, z: 0}
+  m_Center: {x: -0.00000023841858, y: 1.4027547, z: 0}
 --- !u!114 &7664119012734940684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +117,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLaunchForce: 30
   launchDuration: 1
+  directionForceMultiplier: 4
+  direction: 0
 --- !u!1001 &4780235768696644307
 PrefabInstance:
   m_ObjectHideFlags: 0
