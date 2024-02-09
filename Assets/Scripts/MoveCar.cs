@@ -3,11 +3,12 @@ using UnityEngine;
 public class MoveCar : MonoBehaviour
 {
     public float speed = 15f;
-    public float maxSpeed = 20.0f; // Maximum speed limit
-    public float distanceStartBreaking = 5.0f; // Minimum distance to maintain with the car in front
-    public float maxBreakForce = 10.0f; // Maximum force to apply when breaking
-    public float minBreakForce = 1.0f; // Minimum force to apply when breaking
-    public float raycastOffsetY = 1.2f; // Offset for the raycast origin
+    public float acceleration = 0.2f;
+    public float maxSpeed = 20.0f;
+    public float distanceStartBreaking = 5.0f;
+    public float maxBrakeForce = 10.0f;
+    public float minBrakeForce = 1.0f;
+    public float raycastOffsetY = 1.2f;
     public enum Direction
     {
         Forward,
@@ -16,58 +17,76 @@ public class MoveCar : MonoBehaviour
     public Direction direction = Direction.Forward;
 
     private Rigidbody rb;
-    private bool canMove = true;
-    private GameObject frontCar; // Reference to the car in front
+    private GameObject frontCar;
+    private Vector3 movementDirection;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         if (rb == null) Debug.LogError("Rigidbody not found");
 
-        // Find the car in front
-        RaycastHit hit;
-        Vector3 raycastOrigin = transform.position + Vector3.up * raycastOffsetY;
-        if (Physics.Raycast( raycastOrigin, transform.forward, out hit, Mathf.Infinity))
-        {
-            //Debug.Log("Raycast hit: " + hit.collider.name);
-            if (hit.collider.CompareTag("Car") && hit.collider.gameObject != gameObject)
-            {
-                frontCar = hit.collider.gameObject;
-                Debug.Log("Front car found: " + frontCar.name);
-            }
-        }
+        movementDirection = (direction == Direction.Forward) ? transform.forward : -transform.forward;
+        FindCarInFront();
     }
 
     void FixedUpdate()
     {
-        if (rb != null && canMove)
+        if (rb != null)
         {
-            Vector3 movementDirection = (direction == Direction.Forward) ? transform.forward : -transform.forward;
-            Vector3 desiredVelocity = movementDirection * speed;
-            Vector3 velocityChange = desiredVelocity - rb.velocity;
-
-            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+            ApplyForceToTheCar();
         }
 
-        // Check the distance to the car in front
         if (frontCar != null)
         {
-            float distanceToCar = Vector3.Distance(transform.position, frontCar.transform.position);
-            if (distanceToCar < distanceStartBreaking)
-            {
-                // Calculate braking force based on distance
-                float breakForce = Mathf.Lerp(maxBreakForce, minBreakForce, distanceToCar / distanceStartBreaking);
-                speed = Mathf.Clamp(speed - breakForce, 0f, speed); // Adjust this value for a faster/slower decrease in speed
-            }
-            else
-            {
-                // Increase the speed to the original speed
-                speed = Mathf.Clamp(speed + 0.1f, 0f, maxSpeed); // Clamp speed to the maximum speed limit
-            }
+            RegulateSpeed();
         }
 
-        // Draw a debug line to visualize where the raycast is pointing
         Debug.DrawRay(transform.position + Vector3.up * raycastOffsetY, transform.forward * 10f, Color.blue);
+    }
 
+    private void FindCarInFront()
+    {
+        RaycastHit hit;
+        Vector3 raycastOrigin = transform.position + Vector3.up * raycastOffsetY;
+        if (Physics.Raycast(raycastOrigin, transform.forward, out hit, Mathf.Infinity))
+        {
+            if (hit.collider.CompareTag("Car") && hit.collider.gameObject != gameObject)
+            {
+                frontCar = hit.collider.gameObject;
+                //Debug.Log("Front car found: " + frontCar.name);
+            }
+        }
+    }
+
+    private void ApplyForceToTheCar()
+    {
+        Vector3 desiredVelocity = movementDirection * speed;
+        Vector3 velocityChange = desiredVelocity - rb.velocity;
+
+        rb.AddForce(velocityChange, ForceMode.VelocityChange);
+    }
+
+    private void RegulateSpeed()
+    {
+        float distanceToCar = Vector3.Distance(transform.position, frontCar.transform.position);
+        if (distanceToCar < distanceStartBreaking)
+        {
+            BrakeCar(distanceToCar);
+        }
+        else
+        {
+            AccelerateCar();
+        }
+    }
+
+    private void BrakeCar(float distanceToCar)
+    {
+        float breakForce = Mathf.Lerp(maxBrakeForce, minBrakeForce, distanceToCar / distanceStartBreaking);
+        speed = Mathf.Clamp(speed - breakForce, 0f, speed);
+    }
+
+    private void AccelerateCar()
+    {
+        speed = Mathf.Clamp(speed + acceleration, 0f, maxSpeed);
     }
 }
