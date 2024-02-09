@@ -145,12 +145,12 @@ GameObject:
   - component: {fileID: 2673545975878223937}
   - component: {fileID: 1518266750712164446}
   - component: {fileID: 4120489164984798196}
-  - component: {fileID: 7598733016888061147}
-  - component: {fileID: 620715495727615992}
   - component: {fileID: 3182368704289974739}
+  - component: {fileID: 620715495727615992}
+  - component: {fileID: 7950138388964427215}
   m_Layer: 0
   m_Name: Car_Sedan_Moving_Rb
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -250,20 +250,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 2dfd189627cfe43479265db2e35e552c, type: 3}
---- !u!114 &7598733016888061147
-MonoBehaviour:
+--- !u!65 &3182368704289974739
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920239348453179235}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e8421a046760c47a454e772bb9b164, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 15
-  direction: 0
+  serializedVersion: 3
+  m_Size: {x: 2.1721287, y: 1.46, z: 5.165426}
+  m_Center: {x: -0.0000015497211, y: 0.94, z: 0.11457077}
 --- !u!54 &620715495727615992
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -291,27 +298,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 0
---- !u!65 &3182368704289974739
-BoxCollider:
+--- !u!114 &7950138388964427215
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920239348453179235}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.1721287, y: 1.46, z: 5.165426}
-  m_Center: {x: -0.0000015497211, y: 0.94, z: 0.11457077}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21e8421a046760c47a454e772bb9b164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 15
+  maxSpeed: 20
+  distanceStartBreaking: 8.5
+  maxBreakForce: 9
+  minBreakForce: 0.1
+  raycastOffsetY: 0.8
+  direction: 0
 --- !u!1 &2464030082665146111
 GameObject:
   m_ObjectHideFlags: 0
