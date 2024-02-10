@@ -17,7 +17,7 @@ public class MoveCar : MonoBehaviour
     public Direction direction = Direction.Forward;
 
     private Rigidbody rb;
-    private GameObject frontCar;
+    private GameObject frontObject; // can be like a car or a traffic signal
     private Vector3 movementDirection;
 
     private void Start()
@@ -26,19 +26,24 @@ public class MoveCar : MonoBehaviour
         if (rb == null) Debug.LogError("Rigidbody not found");
 
         movementDirection = (direction == Direction.Forward) ? transform.forward : -transform.forward;
-        FindCarInFront();
     }
 
     void FixedUpdate()
     {
+        FindCarInFront();
+
         if (rb != null)
         {
             ApplyForceToTheCar();
         }
 
-        if (frontCar != null)
+        if (frontObject != null)
         {
             RegulateSpeed();
+        } 
+        else
+        {
+            AccelerateCar();
         }
 
         Debug.DrawRay(transform.position + Vector3.up * raycastOffsetY, transform.forward * 10f, Color.blue);
@@ -50,10 +55,13 @@ public class MoveCar : MonoBehaviour
         Vector3 raycastOrigin = transform.position + Vector3.up * raycastOffsetY;
         if (Physics.Raycast(raycastOrigin, transform.forward, out hit, Mathf.Infinity))
         {
-            if (hit.collider.CompareTag("Car") && hit.collider.gameObject != gameObject)
+            if ((hit.collider.CompareTag("Car") || hit.collider.CompareTag("Car Stop")) && hit.collider.gameObject != gameObject)
             {
-                frontCar = hit.collider.gameObject;
-                //Debug.Log("Front car found: " + frontCar.name);
+                frontObject = hit.collider.gameObject;
+            }
+            else
+            {
+                frontObject = null;
             }
         }
     }
@@ -68,7 +76,7 @@ public class MoveCar : MonoBehaviour
 
     private void RegulateSpeed()
     {
-        float distanceToCar = Vector3.Distance(transform.position, frontCar.transform.position);
+        float distanceToCar = Vector3.Distance(transform.position, frontObject.transform.position);
         if (distanceToCar < distanceStartBreaking)
         {
             BrakeCar(distanceToCar);
