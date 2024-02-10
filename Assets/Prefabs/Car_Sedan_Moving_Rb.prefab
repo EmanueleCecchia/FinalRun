@@ -265,7 +265,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -311,10 +311,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  acceleration: 0.2
   maxSpeed: 20
   distanceStartBreaking: 8.5
-  maxBreakForce: 9
-  minBreakForce: 0.1
+  maxBrakeForce: 10
+  minBrakeForce: 1
   raycastOffsetY: 0.8
   direction: 0
 --- !u!1 &2464030082665146111
