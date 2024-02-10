@@ -13,10 +13,10 @@ public class Enemy : MonoBehaviour
     private ThirdPersonController playerController;
     private Transform playerTransform;
     private Quaternion originalEnemyRotation;
+
     [SerializeField] private float respawnTime = 2f;
     [SerializeField] private float respawnDelay = 1f;
     [SerializeField] private Vector3 respawnPosition;
-
     [SerializeField] private GameObject respawnCanvas;
     void Start()
     {
