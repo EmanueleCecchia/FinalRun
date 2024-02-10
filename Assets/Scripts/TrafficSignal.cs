@@ -23,37 +23,35 @@ public class TrafficSignal : MonoBehaviour
         red.Activate();
         signalState = SignalState.Red;
         SetStopsTrafficActive(false);
-        StartCoroutine(ChangeSignal());
+        StartCoroutine(SignalChanges());
     }
-
-    private IEnumerator ChangeSignal()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(red.duration);
-            red.Deactivate();
-            green.Activate();
-            signalState = SignalState.Green;
-            SetStopsTrafficActive(true);
-            yield return new WaitForSeconds(green.duration);
-            green.Deactivate();
-            yellow.Activate();
-            signalState = SignalState.Yellow;
-            SetStopsTrafficActive(true);
-            yield return new WaitForSeconds(yellow.duration);
-            yellow.Deactivate();
-            red.Activate();
-            signalState = SignalState.Red;
-            SetStopsTrafficActive(false);
-        }
-    }
-
     private void SetStopsTrafficActive(bool active)
     {
         foreach (GameObject stopTraffic in stopsTraffic)
         {
             stopTraffic.SetActive(active);
         }
+    }
+
+    private IEnumerator SignalChanges()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(red.duration);
+            ChangeSignal(red, green, SignalState.Green, true);
+            yield return new WaitForSeconds(green.duration);
+            ChangeSignal(green, yellow, SignalState.Yellow, true);
+            yield return new WaitForSeconds(yellow.duration);
+            ChangeSignal(yellow, red, SignalState.Red, false);
+        }
+    }
+
+    private void ChangeSignal(Signal deactivate, Signal activate, SignalState state, bool stopsTrafficActive)
+    {
+        deactivate.Deactivate();
+        activate.Activate();
+        signalState = state;
+        SetStopsTrafficActive(stopsTrafficActive);
     }
 
     [System.Serializable]
