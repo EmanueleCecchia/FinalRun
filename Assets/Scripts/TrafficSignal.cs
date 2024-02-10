@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TrafficSignal : MonoBehaviour
@@ -11,7 +12,7 @@ public class TrafficSignal : MonoBehaviour
     }
     public SignalState signalState;
 
-    [SerializeField] private GameObject stopTraffic;
+    [SerializeField] private List<GameObject> stopsTraffic = new List<GameObject>();
 
     [SerializeField] private Signal red;
     [SerializeField] private Signal yellow;
@@ -21,7 +22,7 @@ public class TrafficSignal : MonoBehaviour
     {
         red.Activate();
         signalState = SignalState.Red;
-        stopTraffic.SetActive(false);
+        SetStopsTrafficActive(false);
         StartCoroutine(ChangeSignal());
     }
 
@@ -33,17 +34,25 @@ public class TrafficSignal : MonoBehaviour
             red.Deactivate();
             green.Activate();
             signalState = SignalState.Green;
-            stopTraffic.SetActive(true);
+            SetStopsTrafficActive(true);
             yield return new WaitForSeconds(green.duration);
             green.Deactivate();
             yellow.Activate();
             signalState = SignalState.Yellow;
-            stopTraffic.SetActive(true);
+            SetStopsTrafficActive(true);
             yield return new WaitForSeconds(yellow.duration);
             yellow.Deactivate();
             red.Activate();
             signalState = SignalState.Red;
-            stopTraffic.SetActive(false);
+            SetStopsTrafficActive(false);
+        }
+    }
+
+    private void SetStopsTrafficActive(bool active)
+    {
+        foreach (GameObject stopTraffic in stopsTraffic)
+        {
+            stopTraffic.SetActive(active);
         }
     }
 
@@ -64,5 +73,3 @@ public class TrafficSignal : MonoBehaviour
         }
     }
 }
-
-
