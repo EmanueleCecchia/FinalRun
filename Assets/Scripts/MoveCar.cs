@@ -30,7 +30,7 @@ public class MoveCar : MonoBehaviour
 
     void FixedUpdate()
     {
-        FindCarInFront();
+        FindObjectInFront();
 
         if (rb != null)
         {
@@ -49,22 +49,21 @@ public class MoveCar : MonoBehaviour
         Debug.DrawRay(transform.position + Vector3.up * raycastOffsetY, transform.forward * 10f, Color.blue);
     }
 
-    private void FindCarInFront()
+    private void FindObjectInFront()
     {
         RaycastHit hit;
         Vector3 raycastOrigin = transform.position + Vector3.up * raycastOffsetY;
         if (Physics.Raycast(raycastOrigin, transform.forward, out hit, Mathf.Infinity))
         {
-            if ((hit.collider.CompareTag("Car") || hit.collider.CompareTag("Car Stop")) && hit.collider.gameObject != gameObject)
-            {
-                frontObject = hit.collider.gameObject;
-            }
-            else
-            {
-                frontObject = null;
-            }
+            frontObject = IsFrontObjectValid(hit) ? hit.collider.gameObject : null;
         }
     }
+
+    private bool IsFrontObjectValid(RaycastHit hit)
+    {
+        return (hit.collider.CompareTag("Car") || hit.collider.CompareTag("Car Stop")) && hit.collider.gameObject != gameObject;
+    }
+
 
     private void ApplyForceToTheCar()
     {
