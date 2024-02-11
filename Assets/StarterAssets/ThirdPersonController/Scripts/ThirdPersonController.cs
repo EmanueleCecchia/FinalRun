@@ -89,6 +89,7 @@ namespace StarterAssets
         [Header("Menu Settings")]
         public bool isMenuOpen;
         public GameObject menuUI;
+        public GameObject hintUI = null;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -211,6 +212,7 @@ namespace StarterAssets
             {
                 isMenuOpen = !isMenuOpen;
                 menuUI.SetActive(isMenuOpen);
+                if (isMenuOpen && hintUI != null) hintUI.SetActive(false);
                 _input.menu = false;
             }
 
