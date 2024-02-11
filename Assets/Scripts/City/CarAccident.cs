@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CarAccident : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class CarAccident : MonoBehaviour
 
     [SerializeField] private float respawnTime = 2f;
     [SerializeField] private float respawnDelay = 1f;
-    [SerializeField] private Vector3 respawnPosition;
+    // [SerializeField] private Vector3 respawnPosition;
     [SerializeField] private GameObject respawnCanvas;
 
     private GameObject player;
@@ -34,8 +35,9 @@ public class CarAccident : MonoBehaviour
     {
         yield return new WaitForSeconds(respawnDelay);
         respawnCanvas.SetActive(true);
-        player.transform.position = respawnPosition;
+        // player.transform.position = respawnPosition;
         yield return new WaitForSeconds(respawnTime);
-        respawnCanvas.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // respawnCanvas.SetActive(false);
     }
 }
