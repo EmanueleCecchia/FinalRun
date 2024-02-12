@@ -9,10 +9,9 @@ public class CitizensMovement : MonoBehaviour
     private Animator myAnimator;
 
     public float walkSpeed = 1.5f;
-    public float minDistance = 2f;
-    public float wanderRadius = 10f; // Maximum range for the random destination
+    public float maxRadius = 10f;
 
-    private Vector3 targetPosition; // The position the NPC is currently moving towards
+    private Vector3 targetPosition;
 
     void Start()
     {
@@ -24,59 +23,28 @@ public class CitizensMovement : MonoBehaviour
 
     void Update()
     {
-        // If the NPC has reached its destination or is very close, set a new random destination
-        if (!myNavMeshAgent.pathPending && myNavMeshAgent.remainingDistance < minDistance)
+        if (!myNavMeshAgent.pathPending && myNavMeshAgent.remainingDistance < myNavMeshAgent.stoppingDistance)
         {
             SetRandomDestination();
         }
 
-        // Update animator parameters if you have animations based on movement
-        myAnimator.SetFloat("Speed", myNavMeshAgent.velocity.magnitude / myNavMeshAgent.speed);
+        myAnimator.SetFloat("Speed", myNavMeshAgent.velocity.magnitude);
     }
 
     void SetRandomDestination()
     {
-        // Get a random point in the NavMesh within wanderRadius distance from the NPC's current position
-        Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
+        Vector3 randomDirection = Random.insideUnitSphere * maxRadius;
         randomDirection += transform.position;
         NavMeshHit hit;
-        NavMesh.SamplePosition(randomDirection, out hit, wanderRadius, 1);
+        NavMesh.SamplePosition(randomDirection, out hit, maxRadius, 1);
         targetPosition = hit.position;
-
-        // Set the new destination for the NavMeshAgent
-        myNavMeshAgent.SetDestination(targetPosition);
+        myNavMeshAgent.SetDestination(targetPosition);   
     }
-}
 
-
-//SetRandomDestination();
-//myNavMeshAgent.speed = walkSpeed;
-
-/*
-void Update()
-{
-    if (myNavMeshAgent.remainingDistance < recalculateDistance)
+    void OnDrawGizmosSelected()
     {
-        SetRandomDestination();
+        // draw the wanderRadius in the editor
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, maxRadius);
     }
-
-    myAnimator.SetFloat("Speed", myNavMeshAgent.velocity.magnitude);
 }
-
-public void SetRandomDestination()
-{
-    Vector3 randomDirection = new Vector3(Random.Range(-rangeRandomPointXZ, rangeRandomPointXZ), Random.Range(-rangeRandomPointY, rangeRandomPointY), Random.Range(-rangeRandomPointXZ, rangeRandomPointXZ));
-    randomDirection += transform.position;
-
-    NavMeshHit hit;
-    Vector3 finalPosition = Vector3.zero;
-
-    while (finalPosition == Vector3.zero || Vector3.Distance(transform.position, finalPosition) < minDistance)
-    {
-        NavMesh.SamplePosition(randomDirection, out hit, rangeRandomPointXZ, 1);
-        finalPosition = hit.position;
-    }
-
-    myNavMeshAgent.SetDestination(finalPosition);
-}
-*/
