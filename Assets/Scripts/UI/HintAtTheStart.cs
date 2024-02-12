@@ -8,7 +8,7 @@ public class HintAtTheStart : MonoBehaviour
 
     [SerializeField] private GameObject hintCanvas;
 
-    [Tooltip("If true delay and hintDuration wil not be considered")]
+    [Tooltip("If true Hint Duration will not be considered")]
     [SerializeField] private bool alwaysShow = false;
 
     [SerializeField] private float delay = 1;
@@ -17,17 +17,17 @@ public class HintAtTheStart : MonoBehaviour
     void Start()
     {
         hintCanvas.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = hintText;
-        if (!alwaysShow) 
-            StartCoroutine(Hint());
-        else
-            hintCanvas.SetActive(true);
+        StartCoroutine(Hint());
     }
 
     IEnumerator Hint()
     {
         yield return new WaitForSeconds(delay);
         hintCanvas.SetActive(true);
-        yield return new WaitForSeconds(hintDuration);
-        hintCanvas.SetActive(false);
+        if (!alwaysShow)
+        {
+            yield return new WaitForSeconds(hintDuration);
+            hintCanvas.SetActive(false);
+        }
     }
 }
