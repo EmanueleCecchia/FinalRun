@@ -8,8 +8,8 @@ public class CitizensMovement : MonoBehaviour
     private NavMeshAgent myNavMeshAgent;
     private Animator myAnimator;
 
-    public float walkSpeed = 1.5f;
-    public float maxRadius = 10f;
+    public float walkSpeed = 1.6f;
+    public float maxRadius = 70f;
 
     private Vector3 targetPosition;
 
