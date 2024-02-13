@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2343824}
   - component: {fileID: 64936961583060392}
   - component: {fileID: 64351928507337730}
-  - component: {fileID: 8617543867352205525}
+  - component: {fileID: 4876455442045767382}
   m_Layer: 0
   m_Name: SM_Prop_LightPole_Base_01
   m_TagString: Untagged
@@ -130,7 +130,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43391506149011906, guid: 237e8588bbe35e041a82f615f8718159, type: 2}
---- !u!208 &8617543867352205525
+--- !u!208 &4876455442045767382
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,7 +142,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.17300001, y: 3.2410002, z: 1.2390001}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 3.2410002, z: 1.0660001}
   m_TimeToStationary: 0.5
