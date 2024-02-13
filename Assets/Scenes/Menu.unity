@@ -746,6 +746,7 @@ GameObject:
   - component: {fileID: 69216177}
   - component: {fileID: 69216176}
   - component: {fileID: 69216175}
+  - component: {fileID: 69216178}
   m_Layer: 5
   m_Name: Options
   m_TagString: Untagged
@@ -879,6 +880,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 69216173}
   m_CullTransparentMesh: 1
+--- !u!114 &69216178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69216173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bb4d1bb1330e8f43a878fd29df60198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerVolumes:
+  - mixer: {fileID: 24100000, guid: d4f058b40d58c2e4baa7cad9811af899, type: 2}
+    slider: {fileID: 1007605880}
+    mixerParameterName: Master
+  - mixer: {fileID: 24100000, guid: d4f058b40d58c2e4baa7cad9811af899, type: 2}
+    slider: {fileID: 1850613913}
+    mixerParameterName: SoundEffects
+  - mixer: {fileID: 24100000, guid: d4f058b40d58c2e4baa7cad9811af899, type: 2}
+    slider: {fileID: 1347224265}
+    mixerParameterName: Music
 --- !u!1 &79928281
 GameObject:
   m_ObjectHideFlags: 0
