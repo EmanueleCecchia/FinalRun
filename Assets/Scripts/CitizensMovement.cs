@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class CitizensMovement : MonoBehaviour
 {
-    private NavMeshAgent myNavMeshAgent;
+    private NavMeshAgent myNavMeshAgent = null;
     private Animator myAnimator;
 
     public float walkSpeed = 1.6f;
@@ -18,17 +18,21 @@ public class CitizensMovement : MonoBehaviour
         myNavMeshAgent = GetComponent<NavMeshAgent>();
         myAnimator = GetComponent<Animator>();
 
-        SetRandomDestination();
+        myAnimator.SetFloat("Speed", 0);
+        if (myNavMeshAgent) SetRandomDestination();
     }
 
     void Update()
     {
-        if (!myNavMeshAgent.pathPending && myNavMeshAgent.remainingDistance < myNavMeshAgent.stoppingDistance)
+        if (myNavMeshAgent != null)
         {
-            SetRandomDestination();
-        }
+            if (!myNavMeshAgent.pathPending && myNavMeshAgent.remainingDistance < myNavMeshAgent.stoppingDistance)
+            {
+                SetRandomDestination();
+            }
 
-        myAnimator.SetFloat("Speed", myNavMeshAgent.velocity.magnitude);
+            myAnimator.SetFloat("Speed", myNavMeshAgent.velocity.magnitude);
+        }
     }
 
     void SetRandomDestination()
